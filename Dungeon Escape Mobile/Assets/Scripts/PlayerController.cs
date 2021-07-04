@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = new Vector2(horizontalInput * speed * Time.deltaTime, rb.velocity.y);
 
-        Debug.Log(IsGrounded() ? "isGrounded" : "isNotGrounded");
+        //Debug.Log(IsGrounded() ? "isGrounded" : "isNotGrounded");
 
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
