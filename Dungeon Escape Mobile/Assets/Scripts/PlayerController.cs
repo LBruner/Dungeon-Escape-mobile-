@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb = null;
+    [SerializeField] private Animator anim = null;
+    [SerializeField] private SpriteRenderer spriteRenderer = null;
 
     [SerializeField] float speed = 2f;
     [SerializeField] float jumpForce = 5.0f;
@@ -25,7 +28,22 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            anim.SetBool("isJumping", true);
         }
+        else if(IsGrounded())
+            anim.SetBool("isJumping", false);
+
+        HandleMoveAnimation(horizontalInput);        
+    }
+
+    private void HandleMoveAnimation(float horizontalInput)
+    {
+        anim.SetFloat("move", Mathf.Abs(horizontalInput));
+
+        if(horizontalInput < 0)
+            spriteRenderer.flipX = true;
+        else
+            spriteRenderer.flipX = false;
     }
 
     private bool IsGrounded()
