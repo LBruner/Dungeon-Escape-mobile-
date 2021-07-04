@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D rb = null;
-    [SerializeField] private Animator anim = null;
+    [SerializeField] private Animator playerAnimator = null;
+    [SerializeField] private Animator swordArcAnimator = null;
     [SerializeField] private SpriteRenderer spriteRenderer = null;
 
     [SerializeField] float speed = 2f;
@@ -16,6 +17,11 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
         Attack();
+
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+            Time.timeScale -= .1f;
+        if(Input.GetKeyDown(KeyCode.DownArrow))
+            Time.timeScale += .1f;
     }
 
     private void Movement()
@@ -29,10 +35,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            anim.SetBool("isJumping", true);
+            playerAnimator.SetBool("isJumping", true);
         }
         else if(IsGrounded())
-            anim.SetBool("isJumping", false);
+            playerAnimator.SetBool("isJumping", false);
 
         HandleMoveAnimation(horizontalInput);        
     }
@@ -41,13 +47,14 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0) && IsGrounded())
         {
-            anim.SetTrigger("attack");
+            playerAnimator.SetTrigger("attack");
+            swordArcAnimator.SetTrigger("swordAnimation");
         }
     }
 
     private void HandleMoveAnimation(float horizontalInput)
     {
-        anim.SetFloat("move", Mathf.Abs(horizontalInput));
+        playerAnimator.SetFloat("move", Mathf.Abs(horizontalInput));
 
         if(horizontalInput < 0)
             spriteRenderer.flipX = true;
