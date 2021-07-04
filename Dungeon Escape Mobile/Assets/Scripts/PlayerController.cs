@@ -8,7 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rb = null;
     [SerializeField] private Animator playerAnimator = null;
     [SerializeField] private Animator swordArcAnimator = null;
-    [SerializeField] private SpriteRenderer spriteRenderer = null;
+    [SerializeField] private SpriteRenderer playerSprite = null;
+    [SerializeField] private SpriteRenderer swordSprite = null;
 
     [SerializeField] float speed = 2f;
     [SerializeField] float jumpForce = 5.0f;
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = Input.GetAxis("Horizontal");
 
         rb.velocity = new Vector2(horizontalInput * speed * Time.deltaTime, rb.velocity.y);
 
@@ -57,9 +58,20 @@ public class PlayerController : MonoBehaviour
         playerAnimator.SetFloat("move", Mathf.Abs(horizontalInput));
 
         if(horizontalInput < 0)
-            spriteRenderer.flipX = true;
-        else
-            spriteRenderer.flipX = false;
+        {
+            playerSprite.flipX = true;
+
+            swordSprite.flipY = true;
+            swordSprite.transform.localPosition = new Vector2(-0.749f, swordSprite.transform.localPosition.y);
+        }
+
+        if(horizontalInput > 0)
+        {
+            playerSprite.flipX = false;
+
+            swordSprite.flipY = false;
+            swordSprite.transform.localPosition = new Vector2(+0.749f, swordSprite.transform.localPosition.y);
+        }
     }
 
     private bool IsGrounded()
