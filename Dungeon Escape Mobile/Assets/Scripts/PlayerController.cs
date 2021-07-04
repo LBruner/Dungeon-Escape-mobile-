@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Movement();
+        Attack();
     }
 
     private void Movement()
@@ -34,6 +35,14 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isJumping", false);
 
         HandleMoveAnimation(horizontalInput);        
+    }
+
+    private void Attack()
+    {
+        if(Input.GetMouseButtonDown(0) && IsGrounded())
+        {
+            anim.SetTrigger("attack");
+        }
     }
 
     private void HandleMoveAnimation(float horizontalInput)
