@@ -8,6 +8,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected SpriteRenderer enemySprite = null;
     [SerializeField] protected Transform pointA = null, pointB = null;
 
+    [SerializeField] protected bool isGoingLeft = true;
     [SerializeField] protected int health;
     [SerializeField] protected float speed;
     [SerializeField] protected int gems;
@@ -18,6 +19,6 @@ public abstract class Enemy : MonoBehaviour
         
     }
 
-    public abstract void FixedUpdate();
+    public abstract void Update();
 
 }

@@ -5,10 +5,8 @@ using UnityEngine;
 public class MossGiant : Enemy
 {
     Vector3 currentTarget;
-    private void Start()
-    {
-    }
-    public override void FixedUpdate()
+
+    public override void Update()
     {
         if (IsIdle()) { return; }
 
@@ -18,20 +16,20 @@ public class MossGiant : Enemy
 
     private void Movement()
     {
-        if(currentTarget.x <= pointA.position.x)
+        if(currentTarget == pointA.position)
             enemySprite.flipX = true;
         else
             enemySprite.flipX = false;
 
-        if (transform.position.x < pointA.position.x +.2f)
+        if (transform.position.x == pointA.position.x)
         {
+            enemyAnimator.SetTrigger("idle");
             currentTarget = pointB.position;
-            enemyAnimator.SetTrigger("idle");
         }
-        else if (transform.position.x > pointB.position.x -.2f)
+        else if (transform.position.x == pointB.position.x)
         {
-            currentTarget = pointA.position;
             enemyAnimator.SetTrigger("idle");
+            currentTarget = pointA.position;
         }
 
         transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
