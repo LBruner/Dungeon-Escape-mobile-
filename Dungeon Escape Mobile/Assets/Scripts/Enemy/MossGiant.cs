@@ -12,11 +12,17 @@ public class MossGiant : Enemy
     {
         if (IsIdle()) { return; }
 
+        Debug.Log(currentTarget);
         Movement();
     }
 
     private void Movement()
     {
+        if(currentTarget.x <= pointA.position.x)
+            enemySprite.flipX = true;
+        else
+            enemySprite.flipX = false;
+
         if (transform.position.x < pointA.position.x +.2f)
         {
             currentTarget = pointB.position;
@@ -30,7 +36,7 @@ public class MossGiant : Enemy
 
         transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
     }
-    
+
     private bool IsIdle()
     {
         return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
