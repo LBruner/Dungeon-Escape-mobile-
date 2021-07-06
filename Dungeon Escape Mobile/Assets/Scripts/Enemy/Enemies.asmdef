@@ -1,7 +1,8 @@
 {
     "name": "Enemies",
     "references": [
-        "GUID:faa7dd250a71ead4fb188a22204857ce"
+        "GUID:faa7dd250a71ead4fb188a22204857ce",
+        "GUID:584ae10045c2d294394c6a1ba13a279b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

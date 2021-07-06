@@ -18,6 +18,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected Vector3 currentTarget;
     protected bool isHit = false;
+    protected Transform playerPos;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Update()
     {
-        if (IsIdle()) { return; }
+        if (IsIdle() && !isHit) { return; }
 
         Movement();
     }
@@ -56,6 +57,17 @@ public abstract class Enemy : MonoBehaviour
 
         if(!isHit)
             transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
+        else if(isHit)
+        {
+            playerPos = FindObjectOfType<PlayerController>().transform;
+
+            if((playerPos.position - transform.position).sqrMagnitude > 2 * 2)
+            {
+                enemyAnimator.SetBool("inCombat", false);
+                isHit = false;
+            }
+        }
+        
     }
 
     private bool IsIdle()
