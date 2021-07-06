@@ -8,6 +8,9 @@ public class AttackHandler : MonoBehaviour
     {
         other.TryGetComponent<IDamageable>(out IDamageable hit);
 
-        hit.HandleDamage(5);
+        if(hit != null)
+        {
+            hit.HandleDamage(5);
+        }
     }
 }

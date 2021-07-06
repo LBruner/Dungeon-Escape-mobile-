@@ -19,5 +19,7 @@ public class Skeleton : Enemy, IDamageable
 
         if(health == 0)
             Debug.Log("E morreu");
+
+        enemyAnimator.SetTrigger("hit");
     }
 }
