@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IDamageable
 {
     [SerializeField] private Rigidbody2D rb = null;
     [SerializeField] private Animator playerAnimator = null;
@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float speed = 2f;
     [SerializeField] float jumpForce = 5.0f;
+
+    public int Health { get; set; }
 
     void FixedUpdate()
     {
@@ -79,5 +81,14 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, .6f, LayerMask.GetMask("Ground"));
 
         return hit.collider;
+    }
+
+    public void HandleDamage(int damageAmount)
+    {
+        Debug.Log("F");
+        Health = (Mathf.Max(Health - damageAmount, 0));
+
+        if (Health == 0)
+            Debug.Log("E morreu");
     }
 }

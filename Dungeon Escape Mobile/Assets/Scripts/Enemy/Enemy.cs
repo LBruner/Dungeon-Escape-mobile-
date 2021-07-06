@@ -73,10 +73,9 @@ public abstract class Enemy : MonoBehaviour
                 enemyAnimator.SetBool("inCombat", false);
                 isHit = false;
             }
-        }
-        
+        }       
     }
-
+    
     private bool IsIdle()
     {
         return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
