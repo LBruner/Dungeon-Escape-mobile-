@@ -57,9 +57,16 @@ public abstract class Enemy : MonoBehaviour
 
         if(!isHit)
             transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
-        else if(isHit)
+        else
         {
             playerPos = FindObjectOfType<PlayerController>().transform;
+
+            Vector2 direction = playerPos.position - transform.position;
+
+            if(direction.x < 0)
+                enemySprite.flipX = true;
+            else
+                enemySprite.flipX = false;
 
             if((playerPos.position - transform.position).sqrMagnitude > 2 * 2)
             {
