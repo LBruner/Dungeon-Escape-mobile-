@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
+
 public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] protected Animator enemyAnimator = null;
