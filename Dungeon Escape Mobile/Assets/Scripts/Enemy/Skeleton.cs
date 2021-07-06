@@ -15,6 +15,9 @@ public class Skeleton : Enemy, IDamageable
 
     public void HandleDamage(int damageAmount)
     {
-        throw new System.NotImplementedException();
+        health = (Mathf.Max(base.health - damageAmount, 0));
+
+        if(health == 0)
+            Debug.Log("E morreu");
     }
 }
