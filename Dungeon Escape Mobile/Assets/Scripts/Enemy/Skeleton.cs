@@ -21,5 +21,7 @@ public class Skeleton : Enemy, IDamageable
             Debug.Log("E morreu");
 
         enemyAnimator.SetTrigger("hit");
+        enemyAnimator.SetBool("inCombat", true);
+        isHit = true;
     }
 }

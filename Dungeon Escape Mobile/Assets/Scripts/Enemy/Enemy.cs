@@ -17,6 +17,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected int gems;
 
     protected Vector3 currentTarget;
+    protected bool isHit = false;
 
     private void Start()
     {
@@ -53,7 +54,8 @@ public abstract class Enemy : MonoBehaviour
             currentTarget = pointA.position;
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
+        if(!isHit)
+            transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
     }
 
     private bool IsIdle()
