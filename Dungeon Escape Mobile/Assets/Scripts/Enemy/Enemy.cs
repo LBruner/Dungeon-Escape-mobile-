@@ -33,7 +33,6 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Init()  
     {
-        
     }
 
     private void Movement()
