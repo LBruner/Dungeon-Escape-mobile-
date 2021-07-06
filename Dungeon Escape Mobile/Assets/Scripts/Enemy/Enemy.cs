@@ -5,7 +5,7 @@ using UnityEngine;
 
 [SelectionBase]
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour, IDamageable
 {
     [SerializeField] protected Animator enemyAnimator = null;
     [SerializeField] protected SpriteRenderer enemySprite = null;
@@ -19,6 +19,8 @@ public abstract class Enemy : MonoBehaviour
     protected Vector3 currentTarget;
     protected bool isHit = false;
     protected Transform playerPos;
+
+    public int Health { get; set; }
 
     private void Start()
     {
@@ -35,6 +37,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Init()  
     {
+        Health = health;
     }
 
     private void Movement()
@@ -74,6 +77,18 @@ public abstract class Enemy : MonoBehaviour
                 isHit = false;
             }
         }       
+    }
+
+    public void HandleDamage(int damageAmount)
+    {
+        health = (Mathf.Max(health - damageAmount, 0));
+
+        if (health == 0)
+            Debug.Log("E morreu");
+
+        enemyAnimator.SetTrigger("hit");
+        enemyAnimator.SetBool("inCombat", true);
+        isHit = true;
     }
     
     private bool IsIdle()

@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void HandleDamage(int damageAmount)
     {
-        Debug.Log("F");
         Health = (Mathf.Max(Health - damageAmount, 0));
 
         if (Health == 0)
