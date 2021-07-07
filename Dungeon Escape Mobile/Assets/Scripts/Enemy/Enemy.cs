@@ -10,11 +10,12 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected Animator enemyAnimator = null;
     [SerializeField] protected SpriteRenderer enemySprite = null;
     [SerializeField] protected Transform pointA = null, pointB = null;
+    [SerializeField] protected GameObject diamondPrefab = null;
 
     [SerializeField] protected bool isGoingLeft = true;
     [SerializeField] protected int health;
     [SerializeField] protected float speed;
-    [SerializeField] protected int gems;
+    [SerializeField] protected int rewardGems;
 
     protected Vector3 currentTarget;
     protected bool isHit = false;
@@ -90,12 +91,23 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if (health == 0)
         {
             enemyAnimator.SetTrigger("isDead");
+            StartCoroutine(HandleEnemyDeath());
+            Debug.Log("Call");
             //Destroy(gameObject);
         }
 
         enemyAnimator.SetTrigger("isHit");
         enemyAnimator.SetBool("inCombat", true);
         isHit = true;
+    }
+
+    IEnumerator HandleEnemyDeath()
+    {
+        yield return new WaitForSeconds(1.5f);
+        GameObject diamondInstance = Instantiate(diamondPrefab, transform.position, Quaternion.identity);
+        diamondInstance.GetComponent<Diamond>().SetRewardGems(rewardGems);
+        yield return new WaitForSeconds(2.5f);
+        Destroy(gameObject);
     }
     
     private bool IsIdle()

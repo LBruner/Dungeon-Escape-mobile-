@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
+
 public class PlayerController : MonoBehaviour, IDamageable
 {
     [SerializeField] private Rigidbody2D rb = null;
@@ -14,12 +16,14 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] int health = 5;
     [SerializeField] float speed = 2f;
     [SerializeField] float jumpForce = 5.0f;
+    [SerializeField] int playerGems = 0;
 
     public int Health { get; set; }
 
     private void Start()
     {
         Health = health;
+        Diamond.OnEnemyKilled += CollectGems;
     }
 
     void FixedUpdate()
@@ -99,6 +103,11 @@ public class PlayerController : MonoBehaviour, IDamageable
 
         if (health == 0)
             playerAnimator.SetTrigger("isDead");
+    }
+
+    private void CollectGems(int rewardGems)
+    {
+        playerGems += rewardGems;
     }
 
     public bool IsDead()
