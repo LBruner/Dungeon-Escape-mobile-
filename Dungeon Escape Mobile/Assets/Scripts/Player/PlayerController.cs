@@ -111,6 +111,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         playerGems += rewardGems;
     }
 
+    public void SetPlayerGems(int newGemsAmount)
+    {
+        playerGems = newGemsAmount;
+    }
+
     public int GetPlayerGems()
     {
         return playerGems;

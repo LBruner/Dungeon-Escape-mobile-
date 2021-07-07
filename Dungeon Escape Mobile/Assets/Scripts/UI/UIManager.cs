@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {   
         instance = this;
-        Shop.OnEnableShop += OpenShop;
+        Shop.OnUpdateUI += OpenShop;
         Shop.OnSelectItem += UpdateShopSelection;
     }
 
@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateShopSelection(int yPos)
     {
+        selectionImage.gameObject.SetActive(true);
         selectionImage.rectTransform.anchoredPosition = new Vector2(selectionImage.rectTransform.anchoredPosition.x, yPos);
     }
 }
