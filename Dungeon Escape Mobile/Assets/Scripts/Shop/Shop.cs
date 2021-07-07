@@ -11,6 +11,11 @@ public class Shop : MonoBehaviour
 
     [SerializeField] GameObject shopPanelObject = null;
 
+    public void SelectItem()
+    {
+        Debug.Log("UM");
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.CompareTag("Player"))
