@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class Spider : Enemy, IDamageable
 {
-    public int Health { get; set; }
-
-
     public override void Init() //Serve para inicializar variáveis no lugar de start
     {
         base.Init();
         Health = base.health;
     }
 
-    public void HandleDamage(int damageAmount)
+    public override void Update()
     {
-        throw new System.NotImplementedException();
+        
     }
+
 }
