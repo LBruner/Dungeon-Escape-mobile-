@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     void FixedUpdate()
     {
+        if (IsDead()) { return; }
+
         Movement();
         Attack();
 
@@ -91,9 +93,16 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void HandleDamage(int damageAmount)
     {
+        if (IsDead()) { return; }
+
         health = (Mathf.Max(health - damageAmount, 0));
 
         if (health == 0)
-            Debug.Log("E morreu");
+            playerAnimator.SetTrigger("isDead");
+    }
+
+    public bool IsDead()
+    {
+        return health == 0;
     }
 }

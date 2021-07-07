@@ -29,6 +29,8 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Update()
     {
+        if (IsDead()) { return; }
+
         if (IsIdle() && !isHit) { return; }
 
         Movement();
@@ -81,10 +83,15 @@ public abstract class Enemy : MonoBehaviour, IDamageable
 
     public void HandleDamage(int damageAmount)
     {
+        if (IsDead()) { return; }
+
         health = (Mathf.Max(health - damageAmount, 0));
 
         if (health == 0)
-            Destroy(gameObject);
+        {
+            enemyAnimator.SetTrigger("isDead");
+            //Destroy(gameObject);
+        }
 
         enemyAnimator.SetTrigger("isHit");
         enemyAnimator.SetBool("inCombat", true);
@@ -94,6 +101,11 @@ public abstract class Enemy : MonoBehaviour, IDamageable
     private bool IsIdle()
     {
         return enemyAnimator.GetCurrentAnimatorStateInfo(0).IsName("Idle");
+    }
+
+    private bool IsDead()
+    {
+        return health == 0;
     }
 
 }
