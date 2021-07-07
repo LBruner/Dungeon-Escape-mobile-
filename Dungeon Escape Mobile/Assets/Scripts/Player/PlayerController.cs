@@ -11,10 +11,16 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] private SpriteRenderer playerSprite = null;
     [SerializeField] private SpriteRenderer swordSprite = null;
 
+    [SerializeField] int health = 5;
     [SerializeField] float speed = 2f;
     [SerializeField] float jumpForce = 5.0f;
 
     public int Health { get; set; }
+
+    private void Start()
+    {
+        Health = health;
+    }
 
     void FixedUpdate()
     {
@@ -85,9 +91,9 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public void HandleDamage(int damageAmount)
     {
-        Health = (Mathf.Max(Health - damageAmount, 0));
+        health = (Mathf.Max(health - damageAmount, 0));
 
-        if (Health == 0)
+        if (health == 0)
             Debug.Log("E morreu");
     }
 }

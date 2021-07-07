@@ -84,7 +84,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         health = (Mathf.Max(health - damageAmount, 0));
 
         if (health == 0)
-            Debug.Log("E morreu");
+            Destroy(gameObject);
 
         enemyAnimator.SetTrigger("isHit");
         enemyAnimator.SetBool("inCombat", true);
