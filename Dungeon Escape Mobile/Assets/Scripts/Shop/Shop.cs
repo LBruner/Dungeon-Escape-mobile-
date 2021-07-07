@@ -7,13 +7,23 @@ public class Shop : MonoBehaviour
 {
     public static Action<int> OnEnableShop;
 
+    public static Action<int> OnSelectItem;
+
     private int currentPlayerGemCount;
 
     [SerializeField] GameObject shopPanelObject = null;
 
-    public void SelectItem()
+    public void SelectItem(int choosenItem)
     {
-        Debug.Log("UM");
+        switch(choosenItem)
+        {
+            case 0: OnSelectItem(64);
+                break;
+            case 1: OnSelectItem(-37);
+                break;              
+            case 2: OnSelectItem(-144);
+                break;               
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
