@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         Health = health;
         Diamond.OnEnemyKilled += CollectGems;
+
     }
 
     void FixedUpdate()
@@ -108,6 +109,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void CollectGems(int rewardGems)
     {
         playerGems += rewardGems;
+    }
+
+    public int GetPlayerGems()
+    {
+        return playerGems;
     }
 
     public bool IsDead()
