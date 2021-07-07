@@ -86,7 +86,7 @@ public abstract class Enemy : MonoBehaviour, IDamageable
         if (health == 0)
             Debug.Log("E morreu");
 
-        enemyAnimator.SetTrigger("hit");
+        enemyAnimator.SetTrigger("isHit");
         enemyAnimator.SetBool("inCombat", true);
         isHit = true;
     }
