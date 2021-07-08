@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class AdsManager : MonoBehaviour, IUnityAdsListener
@@ -13,6 +14,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 #endif
 
     Button myButton;
+
+    [SerializeField] private UnityEvent OnGetAdReward;
     public string mySurfacingId = "rewardedVideo";
 
     void Start()
@@ -51,6 +54,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
         {
+            OnGetAdReward?.Invoke();
+            Shop.OnUpdateUI(Diamond.GetPlayerGems());
             // Reward the user for watching the ad to completion.
         }
         else if (showResult == ShowResult.Skipped)
