@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     [SerializeField] float jumpForce = 5.0f;
     [SerializeField] int playerGems = 0;
 
+    public static Action<int> OnTakeDamage;
+
     public int Health { get; set; }
 
     private void Start()
@@ -106,7 +108,10 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         if (IsDead()) { return; }
 
+
         health = (Mathf.Max(health - damageAmount, 0));
+
+        OnTakeDamage?.Invoke(health);
 
         if (health == 0)
             playerAnimator.SetTrigger("isDead");

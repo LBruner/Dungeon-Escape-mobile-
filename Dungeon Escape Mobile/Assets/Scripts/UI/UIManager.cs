@@ -8,7 +8,9 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI playerGemsText = null;
     [SerializeField] private Image selectionImage = null;
-    [SerializeField] TextMeshProUGUI gemsText = null;   
+    [SerializeField] TextMeshProUGUI gemsText = null;
+
+    [SerializeField] private Image[] healthUnitImages;
 
     private static UIManager instance;
     public static UIManager UIInstance
@@ -25,6 +27,7 @@ public class UIManager : MonoBehaviour
         Shop.OnUpdateUI += UpdateGemsUI;
         Shop.OnSelectItem += UpdateShopSelection;
         Shop.OnUpdateUI += UpdateGemsUI;
+        PlayerController.OnTakeDamage += UpdateHealthImages;
     }
 
     private void OnDestroy()
@@ -45,5 +48,14 @@ public class UIManager : MonoBehaviour
     {
         selectionImage.gameObject.SetActive(true);
         selectionImage.rectTransform.anchoredPosition = new Vector2(selectionImage.rectTransform.anchoredPosition.x, yPos);
+    }
+
+    public void UpdateHealthImages(int currentLives)
+    {
+        Debug.Log(currentLives);
+        for (int i = currentLives + 1; i > currentLives; i--)
+        {
+            healthUnitImages[i - 1].gameObject.SetActive(false);
+        }
     }
 }
