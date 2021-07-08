@@ -39,7 +39,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateGemsUI(int playerGems)
     {
-        Debug.Log(playerGems);
         gemsText.text = playerGems + "G";
         playerGemsText.text = playerGems + "G";
     }
