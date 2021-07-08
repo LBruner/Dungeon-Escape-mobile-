@@ -8,10 +8,13 @@ public class Shop : MonoBehaviour
     public static Action<int> OnUpdateUI;
     public static Action<int> OnSelectItem;
 
+    public static Action<int> OnBuyItem;
+
     private int currentPlayerGemCount;
     private int currentItemSelected;
     private int currentItemPrice;
     private PlayerController player = null;
+
     [SerializeField] GameObject shopPanelObject = null;
 
     public void SelectItem(int choosenItem)
@@ -34,6 +37,7 @@ public class Shop : MonoBehaviour
             player.SetPlayerGems(player.GetPlayerGems() - currentItemPrice);
 
             OnUpdateUI?.Invoke(player.GetPlayerGems());
+            OnBuyItem?.Invoke(currentItemSelected);
         }
     }
 
