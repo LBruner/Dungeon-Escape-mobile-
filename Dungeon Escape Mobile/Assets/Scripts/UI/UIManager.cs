@@ -8,6 +8,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI playerGemsText = null;
     [SerializeField] private Image selectionImage = null;
+    [SerializeField] TextMeshProUGUI gemsText = null;   
+
     private static UIManager instance;
     public static UIManager UIInstance
     {
@@ -20,12 +22,22 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {   
         instance = this;
-        Shop.OnUpdateUI += OpenShop;
+        Shop.OnUpdateUI += UpdateGemsUI;
         Shop.OnSelectItem += UpdateShopSelection;
+        Shop.OnUpdateUI += UpdateGemsUI;
     }
 
-    public void OpenShop(int playerGems)
+    private void OnDestroy()
     {
+        Shop.OnUpdateUI -= UpdateGemsUI;
+        Shop.OnSelectItem -= UpdateShopSelection;
+        Diamond.OnCollectGems -= UpdateGemsUI;
+    }
+
+    public void UpdateGemsUI(int playerGems)
+    {
+        Debug.Log(playerGems);
+        gemsText.text = playerGems + "G";
         playerGemsText.text = playerGems + "G";
     }
 

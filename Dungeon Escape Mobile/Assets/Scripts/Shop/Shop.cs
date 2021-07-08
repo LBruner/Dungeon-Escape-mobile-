@@ -17,6 +17,14 @@ public class Shop : MonoBehaviour
 
     [SerializeField] GameObject shopPanelObject = null;
 
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
+        if(player != null)
+            OnUpdateUI?.Invoke(player.GetPlayerGems());
+    }
+
     public void SelectItem(int choosenItem)
     {
         switch(choosenItem)
@@ -45,11 +53,8 @@ public class Shop : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            other.TryGetComponent<PlayerController>(out PlayerController player);
-
             if(player != null)
             {
-                this.player = player;
                 currentPlayerGemCount = player.GetPlayerGems();
             }
 
