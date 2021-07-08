@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 [SelectionBase]
 
@@ -24,6 +25,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Start()
     {
+
         Health = health;
         Diamond.OnCollectGems += HandleCollectGems;
         Diamond.GetPlayerGems += GetPlayerGems;
@@ -50,13 +52,13 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Movement()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float horizontalInput = CrossPlatformInputManager.GetAxis("Horizontal");
 
         rb.velocity = new Vector2(horizontalInput * speed * Time.deltaTime, rb.velocity.y);
 
         //Debug.Log(IsGrounded() ? "isGrounded" : "isNotGrounded");
 
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if ((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("Jump")) && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             playerAnimator.SetBool("isJumping", true);
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Attack()
     {
-        if(Input.GetMouseButtonDown(0) && IsGrounded())
+        if(CrossPlatformInputManager.GetButtonDown("Attack") && IsGrounded())
         {
             playerAnimator.SetTrigger("attack");
             swordArcAnimator.SetTrigger("swordAnimation");
