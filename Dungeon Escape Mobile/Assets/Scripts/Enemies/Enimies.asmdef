@@ -1,0 +1,16 @@
+{
+    "name": "Enimies",
+    "references": [
+        "GUID:b2787973c6c609648af6bd67a58469c7",
+        "GUID:4e097ff815c65414ba430fc978e09c13"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
